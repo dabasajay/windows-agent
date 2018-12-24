@@ -10,7 +10,6 @@
 #include <cstdio>
 #include <cstring>
 #include <cerrno>
-#include <iostream>
 using namespace std;
 
 int main(){
@@ -38,11 +37,12 @@ int main(){
 		perror("bind failed"); 
 		exit(EXIT_FAILURE); 
 	}
-	cout<<"\nServer started";
+	cout<<"\nStarting Server...";
 	if(listen(server_fd, 3) < 0){
 		perror("listen"); 
 		exit(EXIT_FAILURE); 
 	}
+	cout<<"\nServer started";
 	if((new_socket = accept(server_fd,(struct sockaddr *)&address,(socklen_t*)&addrlen))<0){
 		perror("accept"); 
 		exit(EXIT_FAILURE); 
@@ -52,8 +52,8 @@ int main(){
 	// cout<<buffer;
 	// char *message = 'Server: File request received';
 	// send(new_socket,message,strlen(message),0)
-	// std::rename("./logger.exe", "C:/Users/thekiingslayer/Desktop/logger.exe");
-	std::rename("./logger.exe", "/home/dabasajay/test/logger.exe");
+	std::rename("./logger.exe", "C:/Users/thekiingslayer/Desktop/logger.exe");
+	// std::rename("./logger.exe", "/home/dabasajay/test/logger.exe");
 	cout<<"\nFile sent";
 	close(new_socket);
 	return 0;

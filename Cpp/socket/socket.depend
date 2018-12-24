@@ -5,3 +5,10 @@
 	<Windows.h>
 	<cstring>
 
+1545340801 source:c:\users\thekiingslayer\desktop\networking\cpp\socket\main.cpp
+	<iostream>
+	<cstdio>
+	<winsock2.h>
+	<Windows.h>
+	<cstring>
+
