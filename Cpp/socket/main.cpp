@@ -30,22 +30,15 @@ int main(){
 
     // char buffer[20]={'S'};
     // send(server, buffer, sizeof(buffer), 0);
-    cout<<"\nFile requested"<< endl;
 
-    // char *message;
-    // int valread = recv(server,message,20,0);
-
-    cout<<"\nFile received";
-    STARTUPINFO startInfo = {0};
-    PROCESS_INFORMATION processInfo = {0};
-    // BOOL b5success = CreateProcess(TEXT("C:/Users/thekiingslayer/Desktop/logger.exe"),NULL,NULL,NULL,FALSE,FALSE,NULL,NULL,&startInfo,&processInfo);
-    BOOL b5success = CreateProcess(TEXT("//DABASAJAY/test/logger.exe"),NULL,NULL,NULL,FALSE,FALSE,NULL,NULL,&startInfo,&processInfo);
-    if(b5success){
-        cout<<"\nProcess Started\n\n";
-    }
-    else{
-        cout<<"\nError to start the process \nPress Enter to exit the program";
-        getch();
+    char *message;
+    for(;;){
+        int valread = recv(server,message,1024,0);
+        cout<<"\nCommand Received : "<<message;
+        if ((strcmp(message, "exit")) == 0) {
+            cout<<"\nClient Exit...";
+            break;
+        }
     }
     closesocket(server);
     WSACleanup();
