@@ -2,7 +2,6 @@
 #include <iostream>
 #include <conio.h>
 #include <winsock2.h>
-#include <Windows.h>
 #include <cstring>
 using namespace std;
 int main(){
