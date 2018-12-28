@@ -1,6 +1,8 @@
 #include <conio.h>
 #include <winsock2.h>
 #include <cstdio>
+#include <stdlib.h>
+#include <ctype.h>
 int main(){
     char addrr[15];
     int portNo;
@@ -23,6 +25,18 @@ int main(){
     }
     printf("\n\tClient: Connected to server!");
     char message[30];
+
+    FILE * f;
+    int words=0;
+    char c;
+    char buffer[200];
+    f = fopen("text.txt","r");
+    while(c!=EOF){
+        fscanf(f,"%s",buffer);
+        // send
+        c = fgetc(f);
+    }
+    // rewind (f);
     for(;;){
         int success = recv(server,message,sizeof(message),0);
         if(success<0){
