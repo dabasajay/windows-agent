@@ -3,7 +3,31 @@
 #include <cstdio>
 #include <conio.h>
 #include <winsock2.h>
+#include <cstdio>
+#include <iostream>
+#include <stdlib.h>
 using namespace std;
+
+void receiveLogs(int new_socket){
+	FILE *f;
+	int ch=0;
+	f = fopen("test_received.txt","a");
+	int words=3;
+	char buffer[200];
+	// read words from client
+	cout<<"\n\tServer: receiving file";
+	while(ch!=words){
+		int success = recv(new_socket,buffer,sizeof(buffer),0);
+		char dynamicMessage[success];
+		for(int i=0;i<success;i++)
+            dynamicMessage[i] = buffer[i];
+		cout<<"\n\tServer: word received : "<<dynamicMessage;
+		fprintf(f, "%s ",dynamicMessage);
+		ch++;
+	}
+	fclose(f);
+	cout<<"\n\tServer: file received";
+}
 
 int main(){
 	char addrr[15];
@@ -43,7 +67,7 @@ int main(){
 		cout<<"\n\tServer: Listen failed";
 		exit(EXIT_FAILURE);
 	}
-		
+
 	cout<<"\n\tServer: Waiting for incoming connection";
 	// accept() waits for a connection and wakes when a connection is
 	// established, usually when coding the SERVER part of a client-server app.
@@ -60,6 +84,8 @@ int main(){
 				cout<<"\n\tServer: Client disconnected. Closing connection...";
 				break;
 			}
+			if(strcmp(message,"sendlog")==0)
+				receiveLogs(new_socket);
 		}
 	}
 	else
