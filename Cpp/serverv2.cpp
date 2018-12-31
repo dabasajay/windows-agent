@@ -1,32 +1,25 @@
-// Server side C/C++ program to demonstrate Socket programming
-// ifconfig for ip's
 #include <cstdio>
 #include <conio.h>
 #include <winsock2.h>
-#include <cstdio>
-#include <iostream>
 #include <stdlib.h>
-using namespace std;
 
 void receiveLogs(int new_socket){
-	FILE *f;
-	int ch=0;
-	f = fopen("test_received.txt","a");
-	int words=3;
-	char buffer[200];
-	// read words from client
-	cout<<"\n\tServer: receiving file";
-	while(ch!=words){
-		int success = recv(new_socket,buffer,sizeof(buffer),0);
-		char dynamicMessage[success];
-		for(int i=0;i<success;i++)
-            dynamicMessage[i] = buffer[i];
-		cout<<"\n\tServer: word received : "<<dynamicMessage;
-		fprintf(f, "%s ",dynamicMessage);
-		ch++;
-	}
-	fclose(f);
-	cout<<"\n\tServer: file received";
+	FILE *fp;
+	char recvBuff[1024];
+	fp = fopen("test_received.txt","ab");
+	if(fp==NULL){
+		printf("\n\tServer: Error opening file");
+		return;
+    }
+    printf("\n\tServer: Receiving Logs");
+    int success = recv(new_socket,recvBuff,sizeof(recvBuff),0);
+	char dynamicMessage[success];
+	for(int i=0;i<success;i++)
+		dynamicMessage[i] = recvBuff[i];
+	// printf("\n\tServer: Received : %s",dynamicMessage);
+	fprintf(fp, "%s ",dynamicMessage);
+    fclose(fp);
+    printf("\n\tServer: Logs Received");
 }
 
 int main(){
@@ -44,7 +37,7 @@ int main(){
 	int server_fd, new_socket, valread;
 	// Creating socket file descriptor
 	if((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0){
-		cout<<"\n\tServer: Socket failed";
+		printf("\n\tServer: Socket failed");
 		exit(EXIT_FAILURE);
 	}
 
@@ -56,7 +49,7 @@ int main(){
 	// bind() binds a socket to the SOCKADDR_IN structure containing the
 	// IP and port used to build the connection
 	if(bind(server_fd,(struct sockaddr *)&address,sizeof(address))<0){
-		cout<<"\n\tServer: Bind failed";
+		printf("\n\tServer: Bind failed");
 		exit(EXIT_FAILURE);
 	}
 
@@ -64,24 +57,24 @@ int main(){
 	// 1. socket to listen on
 	// 2. maximum no of connections
 	if(listen(server_fd, SOMAXCONN) < 0){
-		cout<<"\n\tServer: Listen failed";
+		printf("\n\tServer: Listen failed");
 		exit(EXIT_FAILURE);
 	}
 
-	cout<<"\n\tServer: Waiting for incoming connection";
+	printf("\n\tServer: Waiting for incoming connection");
 	// accept() waits for a connection and wakes when a connection is
 	// established, usually when coding the SERVER part of a client-server app.
 	if(new_socket = accept(server_fd,(struct sockaddr *)&address,&addrlen)){
-		cout<<"\n\tServer: Connection found";
+		printf("\n\tServer: Connection found");
 		char message[50] = "You have connected to server!";
 		// send() - method for sending data with TCP sockets
 		send(new_socket,message,strlen(message),0);
 		for(;;){
-			cout<<"\n\tServer: Enter command to send to client\n\t\t";
-			cin>>message;
+			printf("\n\tServer: Enter command to send to client\n\t\t");
+			scanf("%s",message);
 			int success = send(new_socket,message,strlen(message),0);
 			if(success<0){
-				cout<<"\n\tServer: Client disconnected. Closing connection...";
+				printf("\n\tServer: Client disconnected. Closing connection...");
 				break;
 			}
 			if(strcmp(message,"sendlog")==0)
@@ -89,7 +82,7 @@ int main(){
 		}
 	}
 	else
-		cout<<"\n\tServer: No connection found. Closing...";
+		printf("\n\tServer: No connection found. Closing...");
 
 	// closes an open socket
     closesocket(new_socket);
