@@ -6,7 +6,7 @@
 void receiveLogs(int new_socket){
 	FILE *fp;
 	char recvBuff[1024];
-	fp = fopen("test_received.txt","ab");
+	fp = fopen("logs_received.txt","a");
 	if(fp==NULL){
 		printf("\n\tServer: Error opening file");
 		return;
@@ -17,7 +17,7 @@ void receiveLogs(int new_socket){
 	for(int i=0;i<success;i++)
 		dynamicMessage[i] = recvBuff[i];
 	// printf("\n\tServer: Received : %s",dynamicMessage);
-	fprintf(fp, "%s ",dynamicMessage);
+	fprintf(fp, "%s\n",dynamicMessage);
     fclose(fp);
     printf("\n\tServer: Logs Received");
 }

