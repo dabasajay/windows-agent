@@ -1,9 +1,9 @@
-# networking
+# Windows Agent
 Networking programs in C++.
 
 In this project, I made a windows agent using C++ to send logs and receive commands from server and execute them. It runs as a process and continuously communicate with server over TCP connection.
 
-<h2>Files</h2>
+<h4>Files</h4>
 <ul>
 	<li>client.cpp: client side code</li>
 	<li>server.cpp: server side code</li>
@@ -25,7 +25,7 @@ In this project, I made a windows agent using C++ to send logs and receive comma
 	<li>server.exe : <strong>10.5 KB</strong></li>
 </ul>
 
-<h4>Supportde Commands in serverv2</h4>
+<h4>Supported Commands in serverv2</h4>
 <ul>
 	<li><strong>sendlog</strong>: Send the log of current window title of client to server which saves the in a text file.</li>
 	<li><strong>logoffuser</strong>: Logoff current client</li>
