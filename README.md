@@ -1,5 +1,4 @@
-# Windows Agent
-Networking programs in C++.
+# Windows Agent in C++
 
 In this project, I made a windows agent using C++ to send logs and receive commands from server and execute them. It runs as a process and continuously communicate with server over TCP connection.
 
