@@ -1,6 +1,6 @@
 # Windows Agent in C++
 
-In this project, I made a windows agent using C++ to send logs and receive commands from server and execute them. It runs as a process and continuously communicate with server over TCP connection.
+In this project, I made a windows agent using C++ to send logs and receive commands from the server and execute them. It runs as a process and continuously communicates with the server over TCP connection.
 
 <h4>Files</h4>
 <ul>
