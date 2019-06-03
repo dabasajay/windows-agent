@@ -1,4 +1,4 @@
-# Windows Agent in C++
+## Windows Agent in C++
 
 [![Issues](https://img.shields.io/github/issues/dabasajay/windows-agent.svg?color=%231155cc)](https://github.com/dabasajay/windows-agent/issues)
 [![Forks](https://img.shields.io/github/forks/dabasajay/windows-agent.svg?color=%231155cc)](https://github.com/dabasajay/windows-agent/network)
@@ -7,7 +7,7 @@
 
 In this project, I made a windows agent using C++ to send logs and receive commands from the server and execute them. It runs as a process and continuously communicates with the server over TCP connection.
 
-<h4>Files</h4>
+## Files
 <ul type="square">
 	<li>client.cpp: client side code</li>
 	<li>server.cpp: server side code</li>
@@ -15,7 +15,7 @@ In this project, I made a windows agent using C++ to send logs and receive comma
 	<li>serverv2.cpp: server side code version 2</li>
 </ul>
 
-<h4>Procedure</h4>
+## Procedure
 <ul type="square">
 	<li>Compile clientv2.cpp and serverv2.cpp into executables using compiler</li>
 	<li>run server.exe and enter the ip address and port number to setup a server in listening mode</li>
@@ -23,13 +23,13 @@ In this project, I made a windows agent using C++ to send logs and receive comma
 	<li>The server can send messages to the client through terminal and the client show and take action based on the message</li>
 </ul>
 
-<h4>Executables Size</h4>
+## Executables Size
 <ul type="square">
 	<li>client.exe : <strong>11.0 KB</strong></li>
 	<li>server.exe : <strong>10.5 KB</strong></li>
 </ul>
 
-<h4>Supported Commands in serverv2</h4>
+## Supported Commands in serverv2
 <ul type="square">
 	<li><strong>sendlog</strong>: Send the log of current window title of client to server which saves the in a text file.</li>
 	<li><strong>logoffuser</strong>: Logoff current client</li>
