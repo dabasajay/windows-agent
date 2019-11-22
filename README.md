@@ -3,7 +3,7 @@
 [![Issues](https://img.shields.io/github/issues/dabasajay/windows-agent.svg?color=%231155cc)](https://github.com/dabasajay/windows-agent/issues)
 [![Forks](https://img.shields.io/github/forks/dabasajay/windows-agent.svg?color=%231155cc)](https://github.com/dabasajay/windows-agent/network)
 [![Stars](https://img.shields.io/github/stars/dabasajay/windows-agent.svg?color=%231155cc)](https://github.com/dabasajay/windows-agent/stargazers)
-[![Ajay Dabas](https://img.shields.io/badge/Ajay-Dabas-ff0000.svg)](https://dabasajay.github.io/)
+[![Ajay Dabas](https://img.shields.io/badge/Ajay-Dabas-825ee4.svg)](https://dabasajay.github.io/)
 
 In this project, I made a windows agent using C++ to send logs and receive commands from the server and execute them. It runs as a process and continuously communicates with the server over TCP connection.
 
